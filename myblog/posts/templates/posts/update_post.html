@@ -1,0 +1,38 @@
+{% extends 'posts/layouts/base.html' %}
+
+{% block title %}Update post{% endblock title %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mx-auto">
+				<h3 class="text-center mb-3">Update post {{ post.title }}</h3>
+				<form action="" method="post" enctype="multipart/form-data">
+					{% if form.subject.errors %}
+						{% for error in form.subject.errors %}
+							<p class="text-danger"><strong>{{ error }}</strong></p>
+						{% endfor %}
+					{% endif %}
+					{% csrf_token %}
+					{% for field in form %}
+						<div class="form-group">
+							{{ field.label_tag }}
+							{{ field }}
+							{% if field.help_text %}
+								<p class="help">{{ field.help_text }}</p>
+							{% endif %}
+							{% if field.errors %}
+								{% for error in field.errors %}
+									<p class="text-danger"><strong>{{ error }}</strong></p>
+								{% endfor %}
+							{% endif %}
+						</div>
+					{% endfor %}
+					<img class="mb-3" src="{{ post.image.url }}" width="200"><br>
+					<input type="submit" class="btn btn-primary" value="Update post">
+				</form>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+{% endblock body %}

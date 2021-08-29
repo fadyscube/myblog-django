@@ -1,0 +1,52 @@
+{% extends 'posts/layouts/base.html' %}
+
+{% block title %}All posts{% endblock title %}
+
+{% block body %}
+	<h3 class="text-center">{{ message }}</h3>
+
+	<div class="row row-cols-md-3 row-cols-sm-2">
+		{% for post in posts %}
+			<div class="col">
+				<div class="custom-card card mb-3 shadow">
+					{% if post.image %}
+						<img src="{{ post.image.url }}" class="card-img-top" alt="...">
+					{% endif %}
+					<div class="card-body">
+						<h5 class="card-title">{{ post.title }}</h5>
+						<p class="card-text">{{ post.content|truncatechars:"70" }}</p>
+						<a href="{% url 'posts:show' post.id %}" class="btn btn-primary">More</a>
+						{% if post.user == request.user %}
+							<a href="{% url 'posts:update_post' post.id %}" class="btn btn-info">Update</a>
+							<a href="{% url 'posts:delete_post' post.id %}" class="btn btn-danger">Delete</a>
+						{% endif %}
+					</div>
+					<div class="card-footer">
+						{{ post.user.username }}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<nav>
+		<ul class="pagination justify-content-center">
+			{% if posts.has_previous %}
+				<li class="page-item">
+					<a class="page-link" href="?page={{ posts.previous_page_number }}">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+			{% endif %}
+			<li class="page-item"><p class="page-link text-muted">Page {{ posts.number }} of {{ posts.paginator.num_pages }}.</p></li>
+			{% if posts.has_next %}
+				<li class="page-item">
+					<a class="page-link" href="?page={{ posts.next_page_number }}">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			{% endif %}
+		</ul>
+	</nav>
+
+{% endblock body %}

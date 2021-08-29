@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow">
+	<div class="container">
+		<a class="navbar-brand text-white" href="{% url 'posts:index' %}">Myblog</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				{% if request.user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link text-white" href="{% url 'posts:index' %}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="{% url 'posts:new_post' %}">New post</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="{% url 'accounts:logout' %}">Logout</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link text-white" href="{% url 'accounts:login' %}">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="{% url 'accounts:register' %}">Sign up</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+
+		<form action="{% url 'posts:search_posts' %}" method="get" class="d-flex ml-3">
+			<input placeholder="Search" class="form-control me-2" type="search" name="search">
+			<button class="btn btn-outline-light ml-2" type="submit">Search</button>
+		</form>
+
+	</div>
+</nav>

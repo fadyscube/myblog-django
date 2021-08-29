@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+html, body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+	background-image: linear-gradient(to left, #4090ff, #40afff);
+}
+
+.footer {
+	background-image: linear-gradient(to right, #4090ff, #40afff);
+}
+
+.btn-primary {
+	background-image: linear-gradient(to left, #4090ff, #40afff);
+	border: none;
+}
